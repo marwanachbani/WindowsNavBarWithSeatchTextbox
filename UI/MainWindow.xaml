@@ -1,0 +1,251 @@
+﻿<Window x:Class="UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Window.Resources>
+        
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="210"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="105"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <TextBlock Text="Menu" Foreground="White" FontSize="20" Margin="50,0"/>
+                <ToggleButton WindowChrome.IsHitTestVisibleInChrome="True" Margin="5,0,0,0"  x:Name="menuToggleButton" HorizontalContentAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Left" BorderBrush="White" Background="White" Height="40" Content="B" FontSize="26" Width="40" Click="MenuToggleButton_Click" Unchecked="menuToggleButton_Unchecked">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter Property="Width" Value="200"/>
+                                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                                <Setter Property="Foreground" Value="White"/>
+
+                                                <Setter Property="Content" Value="&#10005; Close"/>
+                                            </Trigger>
+                                            <Trigger Property="IsChecked" Value="False">
+                                                <Setter Property="Content" Value="&#8285; Menu"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+                <Popup Width="200"  x:Name="menuPopup" IsOpen="{Binding ElementName=menuToggleButton, Path=IsChecked}" PlacementTarget="{Binding ElementName=menuToggleButton}" Placement="Bottom" StaysOpen="False">
+                    <Border Background="White" BorderBrush="White" BorderThickness="1" CornerRadius="5">
+                        <!-- Your menu content here -->
+                        <StackPanel Background="White" >
+                            <StackPanel.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="6"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Button Background="White" BorderBrush="White" Height="40" Foreground="Black" Content="Item 1" Click="MenuItem_Click"/>
+                            <Button Background="White" BorderBrush="White" Height="40" Foreground="Black" Content="Item 1" Click="MenuItem_Click"/>
+                            <Button Background="White" BorderBrush="White" Height="40" Foreground="Black" Content="Item 1" Click="MenuItem_Click"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+                
+            </Grid>
+            <Grid Grid.Column="1">
+                <TextBlock x:Name="searchholder" Margin="5,0,0,0" IsEnabled="False" HorizontalAlignment="Left"  FontSize="15" VerticalAlignment="Center" Text="Search ..."/>
+                <TextBox x:Name="search" BorderBrush="Transparent" WindowChrome.IsHitTestVisibleInChrome="True"  VerticalContentAlignment="Center" Background="Transparent" Margin="0,0" HorizontalAlignment="Left" Height="35" Width="300" FontSize="16" MaxLines="1" LostFocus="search_LostFocus" GotFocus="search_GotFocus" TextChanged="search_TextChanged">
+                    <TextBox.Resources>
+                        <Style TargetType="TextBox">
+                            <Setter Property="BorderThickness" Value="4"/>
+                        </Style>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="2"/>
+                        </Style>
+
+                    </TextBox.Resources>
+                </TextBox>
+                <Button x:Name="searchbutton" BorderBrush="Yellow" WindowChrome.IsHitTestVisibleInChrome="True" FontSize="20" Content="S"  Background="#FFEDEEE3"  HorizontalAlignment="Left" Margin="310,0,0,0" Width="50" Height="31">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Border x:Name="Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="3">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+            </Grid>
+            <Grid Grid.Column="2">
+                <Button WindowChrome.IsHitTestVisibleInChrome="True" Click="CloseButton_Click" Content="✕" BorderBrush="White" Background="White" HorizontalAlignment="Right" Width="35">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Border x:Name="Border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="3">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="#FFB51313"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="#FFB51313"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="#FFB51313"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="#FFB51313"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button WindowChrome.IsHitTestVisibleInChrome="True" Click="MaximizeButton_Click" Content="&#9744;" BorderBrush="White" Background="White" HorizontalAlignment="Center" Width="35" >
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Border x:Name="Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="3">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+
+
+                </Button>
+                <Button WindowChrome.IsHitTestVisibleInChrome="True" Click="MinimizeButton_Click" Content ="&#8212;" BorderBrush="White" Background="White" HorizontalAlignment="Left" Width="35">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Grid>
+                                            <Border x:Name="Border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                CornerRadius="3">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="Black"/>
+                                                <Setter TargetName="Border" Property="BorderBrush" Value="Black"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+
+
+            
+
+        </Grid>
+    </Grid>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="30"               
+        ResizeBorderThickness="4"       
+        CornerRadius="5"                
+        GlassFrameThickness="0"        
+        NonClientFrameEdges="None" UseAeroCaptionButtons="True"/>
+
+    </WindowChrome.WindowChrome>
+</Window>
